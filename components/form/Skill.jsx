@@ -2,8 +2,17 @@ import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 import FormButton from "./FormButton";
 
-const Skill = ({ title }) => {
+const Skill = ({ title, cvLanguage }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
+
+  const t = {
+    en: {
+      skill: "Skill",
+    },
+    de: {
+      skill: "Fähigkeit",
+    },
+  };
 
   // skills
   const handleSkill = (e, index, title) => {
@@ -59,7 +68,9 @@ const Skill = ({ title }) => {
 
   return (
     <div className="flex-col-gap-2">
-      <h2 className="input-title">{title}</h2>
+      <h2 className="input-title">
+        {t[cvLanguage]?.skill || t.en.skill}: {title}
+      </h2>
       {skillType.skills.map((skill, index) => (
         <div key={index} className="f-col">
           <input

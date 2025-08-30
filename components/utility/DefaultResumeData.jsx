@@ -1,14 +1,14 @@
 const DefaultResumeData = {
-  name: "MARCUS HALL",
-  position: "Developer",
-  contactInformation: "+1-555-0100",
-  email: "beddylea@gmail.com",
-  address: "San Francisco, CA",
+  name: "Marwa Bensaid",
+  position: "Software Engineer",
+  contactInformation: "+49 1744059558",
+  email: "mbmarwabensaid@gmail.com",
+  address: "Parkstraße, 67655 Kaiserslautern, Germany",
   profilePicture: "",
   socialMedia: [
     {
       socialMedia: "Github",
-      link: "github.com//bedivere-lea",
+      link: "github.com/MarwaBenSaid-cmd",
     },
     {
       socialMedia: "LinkedIn",

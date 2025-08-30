@@ -26,6 +26,9 @@ export default function Builder(props) {
   // resume data
   const [resumeData, setResumeData] = useState(DefaultResumeData);
 
+  // language selection
+  const [cvLanguage, setCvLanguage] = useState('en');
+
   // form hide/show
   const [formClose, setFormClose] = useState(false);
 
@@ -57,36 +60,47 @@ export default function Builder(props) {
           setResumeData,
           handleProfilePicture,
           handleChange,
+          cvLanguage,
+          setCvLanguage,
         }}
       >
         <Meta
-          title="ATSResume | Get hired with an ATS-optimized resume"
+          title="Tunibless"
           description="ATSResume is a cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes. Our platform uses the latest technology to analyze and optimize your resume for maximum visibility and success with applicant tracking systems. Say goodbye to frustration and wasted time spent on manual resume formatting. Create your winning resume with ATSResume today and get noticed by employers."
           keywords="ATS-friendly, Resume optimization, Keyword-rich resume, Applicant Tracking System, ATS resume builder, ATS resume templates, ATS-compliant resume, ATS-optimized CV, ATS-friendly format, ATS resume tips, Resume writing services, Career guidance, Job search in India, Resume tips for India, Professional resume builder, Cover letter writing, Interview preparation, Job interview tips, Career growth, Online job applications, resume builder, free resume builder, resume ats, best free resume builder, resume creator, resume cv, resume design, resume editor, resume maker"
         />
         <div className="f-col gap-4 md:flex-row justify-evenly max-w-7xl md:mx-auto md:h-screen">
+          {/* Language Selector */}
+          <div className="p-2 bg-white rounded shadow mb-2 w-fit exclude-print">
+            <label htmlFor="cv-language" className="mr-2 font-semibold">CV Language:</label>
+            <select id="cv-language" value={cvLanguage} onChange={e => setCvLanguage(e.target.value)}>
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+            </select>
+          </div>
           {!formClose && (
-            <form className="p-4 bg-fuchsia-600 exclude-print md:max-w-[40%] md:h-screen md:overflow-y-scroll">
-              <LoadUnload/>
-              <PersonalInformation />
-              <SocialMedia />
-              <Summary />
-              <Education />
-              <WorkExperience />
-              <Projects />
+            <form className="p-4 bg-blue-600 exclude-print md:max-w-[40%] md:h-screen md:overflow-y-scroll">
+              <LoadUnload cvLanguage={cvLanguage} />
+              <PersonalInformation cvLanguage={cvLanguage} />
+              <SocialMedia cvLanguage={cvLanguage} />
+              <Summary cvLanguage={cvLanguage} />
+              <Education cvLanguage={cvLanguage} />
+              <WorkExperience cvLanguage={cvLanguage} />
+              <Projects cvLanguage={cvLanguage} />
               {
                 resumeData.skills.map((skill, index) => (
                   <Skill
                     title={skill.title}
                     key={index}
+                    cvLanguage={cvLanguage}
                   />
                 ))
               }
-              <Language />
-              <Certification />
+              <Language cvLanguage={cvLanguage} />
+              <Certification cvLanguage={cvLanguage} />
             </form>
           )}
-          <Preview />
+          <Preview cvLanguage={cvLanguage} />
         </div>
         <FormCP formClose={formClose} setFormClose={setFormClose} />
         <Print />

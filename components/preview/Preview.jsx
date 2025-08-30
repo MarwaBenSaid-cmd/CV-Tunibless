@@ -45,7 +45,7 @@ const Draggable = dynamic(
   { ssr: false }
 );
 
-const Preview = () => {
+const Preview = ({ cvLanguage }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
   const [content, setContent] = useState(resumeData);
   const icons = [
@@ -143,8 +143,9 @@ const Preview = () => {
       <A4PageWrapper>
         <HighlightMenu
           styles={{
-            borderColor: "#C026D3",
-            backgroundColor: "#C026D3",
+            borderColor: "blue", 
+            backgroundColor: "#008000", // Tunibless green
+            color: "gray", // Tunibless gold
             boxShadow: "0px 5px 5px 0px rgba(0, 0, 0, 0.15)",
             zIndex: 10,
             borderRadius: "5px",
@@ -281,6 +282,26 @@ const Preview = () => {
                   </div>
                 )}
               </div>
+              <div>
+                {resumeData.certifications.length > 0 && (
+                  <div className="mb-1">
+                    <h2 className="section-title mb-1 border-b-2 border-gray-300">
+                      Certifications
+                    </h2>
+                    {resumeData.certifications.map((item, index) => (
+                      <div key={index} className="mb-1">
+                        <p className="content i-bold">{item.title}</p>
+                        <p className="content">{item.issuer}</p>
+                        <DateRange
+                          startYear={item.startYear}
+                          endYear={item.endYear}
+                          id={`certification-start-end-date`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Droppable droppableId="skills" type="SKILLS">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -310,10 +331,6 @@ const Preview = () => {
                 )}
               </Droppable>
               <Language title="Languages" languages={resumeData.languages} />
-              <Certification
-                title="Certifications"
-                certifications={resumeData.certifications}
-              />
             </div>
             
             <div className="col-span-2 space-y-2">

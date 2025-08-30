@@ -2,8 +2,23 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 
-const Education = () => {
+const Education = ({ cvLanguage }) => {
     const { resumeData, setResumeData} = useContext(ResumeContext);
+
+    const t = {
+      en: {
+        title: "Education",
+        school: "School/University",
+        degree: "Degree",
+        year: "Year"
+      },
+      de: {
+        title: "Ausbildung",
+        school: "Schule/Universität",
+        degree: "Abschluss",
+        year: "Jahr"
+      }
+    };
 
     const handleEducation = (e, index) => {
       const newEducation = [...resumeData.education];
@@ -30,19 +45,19 @@ const Education = () => {
     
     return (
       <div className="flex-col-gap-2">
-        <h2 className="input-title">Education</h2>
+        <h2 className="input-title">{t[cvLanguage]?.title || t.en.title}</h2>
         {resumeData.education.map((education, index) => (
           <div key={index} className="f-col">
             <input
               type="text"
-              placeholder="School"
+              placeholder={t[cvLanguage]?.school || t.en.school}
               name="school"
               className="w-full other-input"
               value={education.school}
               onChange={(e) => handleEducation(e, index)} />
             <input
               type="text"
-              placeholder="Degree"
+              placeholder={t[cvLanguage]?.degree || t.en.degree}
               name="degree"
               className="w-full other-input"
               value={education.degree}

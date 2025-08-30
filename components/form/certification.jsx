@@ -2,10 +2,23 @@ import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 import FormButton from "./FormButton";
 
-const Certification = () => {
+const Certification = ({ cvLanguage }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
   const skillType = "certifications";
   const title = "Certifications";
+
+  const t = {
+    en: {
+      title: "Certifications",
+      name: "Certification Name",
+      issuer: "Issuer"
+    },
+    de: {
+      title: "Zertifikate",
+      name: "Zertifikatsname",
+      issuer: "Aussteller"
+    }
+  };
 
   const handleSkills = (e, index, skillType) => {
     const newSkills = [...resumeData[skillType]];
@@ -25,13 +38,13 @@ const Certification = () => {
 
   return (
     <div className="flex-col-gap-2">
-      <h2 className="input-title">{title}</h2>
+      <h2 className="input-title">{t[cvLanguage]?.title || t.en.title}</h2>
       {resumeData[skillType].map((skill, index) => (
         <div key={index} className="f-col">
           <input
             type="text"
-            placeholder={title}
-            name={title}
+            placeholder={t[cvLanguage]?.name || t.en.name}
+            name={t[cvLanguage]?.name || t.en.name}
             className="w-full other-input"
             value={skill}
             onChange={(e) => handleSkills(e, index, skillType)}

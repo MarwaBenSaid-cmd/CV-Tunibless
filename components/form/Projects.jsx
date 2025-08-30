@@ -2,8 +2,29 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 
-const Projects = () => {
-  const { resumeData, setResumeData } = useContext(ResumeContext);
+const Projects = ({ cvLanguage }) => {
+  const { resumeData, setResumeData, handleChange } = useContext(ResumeContext);
+
+  const t = {
+    en: {
+      title: "Projects",
+      name: "Project Name",
+      link: "Link",
+      description: "Description",
+      keyAchievements: "Key Achievements",
+      startYear: "Start Year",
+      endYear: "End Year",
+    },
+    de: {
+      title: "Projekte",
+      name: "Projektname",
+      link: "Link",
+      description: "Beschreibung",
+      keyAchievements: "Hauptleistungen",
+      startYear: "Anfangsjahr",
+      endYear: "Endjahr",
+    },
+  };
 
   const handleProjects = (e, index) => {
     const newProjects = [...resumeData.projects];
@@ -37,12 +58,12 @@ const Projects = () => {
 
   return (
     <div className="flex-col-gap-2">
-      <h2 className="input-title">Projects</h2>
+      <h2 className="input-title">{t[cvLanguage]?.title || t.en.title}</h2>
       {resumeData.projects.map((project, index) => (
         <div key={index} className="f-col">
           <input
             type="text"
-            placeholder="Project Name"
+            placeholder={t[cvLanguage]?.name || t.en.name}
             name="name"
             className="w-full other-input"
             value={project.name}
@@ -50,7 +71,7 @@ const Projects = () => {
           />
           <input
             type="text"
-            placeholder="Link"
+            placeholder={t[cvLanguage]?.link || t.en.link}
             name="link"
             className="w-full other-input"
             value={project.link}
@@ -58,7 +79,7 @@ const Projects = () => {
           />
           <textarea
             type="text"
-            placeholder="Description"
+            placeholder={t[cvLanguage]?.description || t.en.description}
             name="description"
             className="w-full other-input h-32"
             value={project.description}
@@ -67,7 +88,9 @@ const Projects = () => {
           />
           <textarea
             type="text"
-            placeholder="Key Achievements"
+            placeholder={
+              t[cvLanguage]?.keyAchievements || t.en.keyAchievements
+            }
             name="keyAchievements"
             className="w-full other-input h-40"
             value={project.keyAchievements}
@@ -76,7 +99,7 @@ const Projects = () => {
           <div className="flex-wrap-gap-2">
             <input
               type="date"
-              placeholder="Start Year"
+              placeholder={t[cvLanguage]?.startYear || t.en.startYear}
               name="startYear"
               className="other-input"
               value={project.startYear}
@@ -84,7 +107,7 @@ const Projects = () => {
             />
             <input
               type="date"
-              placeholder="End Year"
+              placeholder={t[cvLanguage]?.endYear || t.en.endYear}
               name="endYear"
               className="other-input"
               value={project.endYear}

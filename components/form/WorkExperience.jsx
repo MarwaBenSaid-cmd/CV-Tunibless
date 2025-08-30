@@ -2,11 +2,26 @@ import FormButton from "./FormButton";
 import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 
-const WorkExperience = () => {
+const WorkExperience = ({ cvLanguage }) => {
   const {
     resumeData,
     setResumeData,
   } = useContext(ResumeContext);
+
+  const t = {
+    en: {
+      title: "Work Experience",
+      company: "Company",
+      position: "Position",
+      duration: "Duration"
+    },
+    de: {
+      title: "Berufserfahrung",
+      company: "Firma",
+      position: "Position",
+      duration: "Dauer"
+    }
+  };
 
   const handleWorkExperience = (e, index) => {
     const newworkExperience = [...resumeData.workExperience];
@@ -40,12 +55,12 @@ const WorkExperience = () => {
 
   return (
     <div className="flex-col-gap-2">
-      <h2 className="input-title">Work Experience</h2>
+      <h2 className="input-title">{t[cvLanguage]?.title || t.en.title}</h2>
       {resumeData.workExperience.map((workExperience, index) => (
         <div key={index} className="f-col">
           <input
             type="text"
-            placeholder="Company"
+            placeholder={t[cvLanguage]?.company || t.en.company}
             name="company"
             className="w-full other-input"
             value={workExperience.company}
@@ -53,7 +68,7 @@ const WorkExperience = () => {
           />
           <input
             type="text"
-            placeholder="Job Title"
+            placeholder={t[cvLanguage]?.position || t.en.position}
             name="position"
             className="w-full other-input"
             value={workExperience.position}
